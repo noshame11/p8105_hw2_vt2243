@@ -8,17 +8,13 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 ```
 library(tidyverse)
-library(tidyr)
-getwd(C:/Users/Studious/Desktop/Fall2018/Data Science/HW2/Homework2)
 ## R Markdown
 ```{r}
 subway_data = read.csv(file = "./NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
-subway_data = janitor::clean_names(subway_data)
-names(subway_data)
-dplyr::select(subway_data, line, station_name, station_latitude, station_longitude, route1, route2, route3, route4, route5, route6, route7, route8, route9, route10, route11, entry, vending, entrance_type, ada)
+cleaned_subway_data = janitor::clean_names(subway_data)
+selected_subway_data = dplyr::select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1, route2, route3, route4, route5, route6, route7, route8, route9, route10, route11, entry, vending, entrance_type, ada)
 ## Parsed with column specification:
 ## cols(
-##   Division= col_character(),
 ##   `Line` = col_character(),
 ##   `Station Name` = col_character(),
 ##   `Station Latitude` = col_double(),
