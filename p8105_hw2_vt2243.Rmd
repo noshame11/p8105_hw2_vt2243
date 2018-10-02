@@ -12,7 +12,9 @@ library(tidyverse)
 ```{r}
 subway_data = read.csv(file = "./NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
 cleaned_subway_data = janitor::clean_names(subway_data)
+tidyr::unite_(cleaned_subway_data, "routes, c("route1", "route2", "route3", "route4", "route5", "route6", "route7", "route8", "route9", "route10", "route11")
 selected_subway_data = dplyr::select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1, route2, route3, route4, route5, route6, route7, route8, route9, route10, route11, entry, vending, entrance_type, ada)
+names(selected_subway_data)
 ## Parsed with column specification:
 ## cols(
 ##   `Line` = col_character(),
