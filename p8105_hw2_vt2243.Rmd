@@ -15,12 +15,17 @@ subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_AND_Exit_Data.csv")
 cleaned_subway_data = janitor::clean_names(subway_data)
 selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>% mutate(entry = recode(entry, "YES" = TRUE, "NO" = FALSE)) 
 ## Counting Columns and Rows
+as.tibble(selected_subway_data)
 nrow(selected_subway_data)
 ncol(selected_subway_data)
 ```
 ```{r Answer Problem 1 Questions, echo = FALSE}
-## How Many Distinct Stations Are There?
-
-
+## How Many Distinct Stations are There?
+counting_stations = distinct(selected_subway_data, line, station_name)
+as.tibble(counting_stations)
+nrow(counting_stations)
+## How Many Distinct Stations with ADA are There?
+counting_stations_ada = distinct(counting_stations, line, station, ada)
+as.tibble(counting_stations_ada)
 ```
 

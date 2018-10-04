@@ -143,8 +143,59 @@ $(document).ready(function () {
 ##   `Entrance Longitude` = col_double()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
+<pre><code>## # A tibble: 1,868 x 19
+##    line  station_name station_latitude station_longitu~ route1 route2
+##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; 
+##  1 4 Av~ 25th St                  40.7            -74.0 R      &lt;NA&gt;  
+##  2 4 Av~ 25th St                  40.7            -74.0 R      &lt;NA&gt;  
+##  3 4 Av~ 36th St                  40.7            -74.0 N      R     
+##  4 4 Av~ 36th St                  40.7            -74.0 N      R     
+##  5 4 Av~ 36th St                  40.7            -74.0 N      R     
+##  6 4 Av~ 45th St                  40.6            -74.0 R      &lt;NA&gt;  
+##  7 4 Av~ 45th St                  40.6            -74.0 R      &lt;NA&gt;  
+##  8 4 Av~ 45th St                  40.6            -74.0 R      &lt;NA&gt;  
+##  9 4 Av~ 45th St                  40.6            -74.0 R      &lt;NA&gt;  
+## 10 4 Av~ 53rd St                  40.6            -74.0 R      &lt;NA&gt;  
+## # ... with 1,858 more rows, and 13 more variables: route3 &lt;chr&gt;,
+## #   route4 &lt;chr&gt;, route5 &lt;chr&gt;, route6 &lt;chr&gt;, route7 &lt;chr&gt;, route8 &lt;int&gt;,
+## #   route9 &lt;int&gt;, route10 &lt;int&gt;, route11 &lt;int&gt;, entry &lt;lgl&gt;,
+## #   vending &lt;chr&gt;, entrance_type &lt;chr&gt;, ada &lt;lgl&gt;</code></pre>
 <pre><code>## [1] 1868</code></pre>
 <pre><code>## [1] 19</code></pre>
+<pre><code>## # A tibble: 465 x 2
+##    line     station_name            
+##    &lt;chr&gt;    &lt;chr&gt;                   
+##  1 4 Avenue 25th St                 
+##  2 4 Avenue 36th St                 
+##  3 4 Avenue 45th St                 
+##  4 4 Avenue 53rd St                 
+##  5 4 Avenue 59th St                 
+##  6 4 Avenue 77th St                 
+##  7 4 Avenue 86th St                 
+##  8 4 Avenue 95th St                 
+##  9 4 Avenue 9th St                  
+## 10 4 Avenue Atlantic Av-Barclays Ctr
+## # ... with 455 more rows</code></pre>
+<pre><code>## [1] 465</code></pre>
+<pre><code>## Warning: Trying to compute distinct() for variables not found in the data:
+## - `station`, `ada`
+## This is an error, but only a warning is raised for compatibility reasons.
+## The following variables will be used:
+## - line</code></pre>
+<pre><code>## # A tibble: 36 x 1
+##    line            
+##    &lt;chr&gt;           
+##  1 4 Avenue        
+##  2 42nd St Shuttle 
+##  3 6 Avenue        
+##  4 63rd Street     
+##  5 8 Avenue        
+##  6 Archer Av       
+##  7 Astoria         
+##  8 Brighton        
+##  9 Broadway        
+## 10 Broadway Jamaica
+## # ... with 26 more rows</code></pre>
 
 
 
