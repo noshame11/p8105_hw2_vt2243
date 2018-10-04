@@ -4,21 +4,17 @@ author: "Vincent Tam"
 date: "October 2, 2018"
 output: html_document
 ---
-```{r setup, include=FALSE}
+```{r Library Setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-```
 library(tidyverse)
-library(dplyr)
-library(tibble)
+```
 ## R Markdown
-```{r}
-subway_data = read.csv(file = "./NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
+```{r Reading and Cleaning Subway Data}
+subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
 cleaned_subway_data = janitor::clean_names(subway_data)
-
-## unite_(cleaned_subway_data, routes, c('route1', 'route2', 'route3', 'route4', 'route5', 'route6', 'route7', 'route8', 'route9', 'route10', 'route11')
-selected_subway_data = dplyr::select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1, route2, route3, route4, route5, route6, route7, route8, route9, route10, route11, entry, vending, entrance_type, ada)
+selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route10, route11, entry, vending, entrance_type, ada)
 as.tibble(selected_subway_data)
-## names(selected_subway_data)
+names(selected_subway_data)
 ## Parsed with column specification:
 ## cols(
 ##   `Line` = col_character(),
