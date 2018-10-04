@@ -104,6 +104,9 @@ pull(most_observed_state, n)
 data_2002 = brfss_data %>% 
   filter(year == 2002)
 median(data_2002$excellent, na.rm = TRUE) 
+```
+
+```{r Plots, echo = FALSE, warning = FALSE}
 ## Plotting
 ## Histogram of Excellent Responses in 2002
 ggplot(data_2002, aes(x = excellent)) + geom_histogram(binwidth = 0.75)
