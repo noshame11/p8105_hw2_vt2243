@@ -12,7 +12,8 @@ library(tidyverse)
 ```{r Reading, Cleaning, and Mutating Subway Data}
 subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
 cleaned_subway_data = janitor::clean_names(subway_data)
-selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route10, route11, entry, vending, entrance_type, ada) %>% mutate(logical_entry = recode(entry, "YES" = TRUE, "NO" = FALSE))
+mutate(logical_entry = recode(entry, "YES" = TRUE, "NO" = FALSE))
+selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route10, route11, entry, vending, entrance_type, ada)
 as.tibble(selected_subway_data)
 names(selected_subway_data)
 ## Parsed with column specification:
