@@ -14,7 +14,8 @@ library(tidyverse)
 subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_AND_Exit_Data.csv")
 ## Clean, Select, and Mutate
 cleaned_subway_data = janitor::clean_names(subway_data)
-selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>% mutate(entry = recode(entry, "YES" = TRUE, "NO" = FALSE)) 
+selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>% 
+  mutate(entry = recode(entry, "YES" = TRUE, "NO" = FALSE)) 
 ## Counting Columns and Rows
 as.tibble(selected_subway_data)
 nrow(selected_subway_data)
@@ -77,8 +78,8 @@ median(median_balls_2016$sports_balls)
 ```
 ## Problem 3 BRFFS Data
 ```{r Installing Dataset, echo = FALSE}
-# install.packages("devtools")
-devtools::install_github("p8105/p8105.datasets")
+## install.packages("devtools")
+## devtools::install_github("p8105/p8105.datasets"); already installed but do not want to install every time
 library(p8105.datasets)
 data(brfss_smart2010)
 ## Clean and Wrangle Data
@@ -90,4 +91,16 @@ brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
 mutate(excellent_verygood = excellent + very_good)
 ## Answer Questions
 ## Unique Locations Included in Dataset? Every State Represented? State Observed the Most?
+nrow(distinct(brfss_data, locationabbr))
+most_observed_state = count(brfss_data, locationabbr) %>%
+  top_n(1, n) 
+pull(most_observed_state, locationabbr)   
+pull(most_observed_state, n)
+data_2002 = brfss_data %>% 
+  filter(year == 2002)
+median(data_2002$excellent, na.rm = TRUE) 
+## Plotting
+## Histogram
+## Scatterplot
+
 ```
