@@ -8,6 +8,7 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
+## Problem 1 NYC Subways
 ```{r Reading, Cleaning, Mutating, and Counting Rows/Columns Subway Data, echo = FALSE}
 ## Read Data
 subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_AND_Exit_Data.csv")
@@ -29,4 +30,64 @@ sum(counting_stations$ada)
 vending_entrances = selected_subway_data %>%
 mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE), vending_none = !(vending == entry))
 sum(vending_entrances$vending_none)/nrow(vending_entrances) 
+## Reformat Route Number and Route Name
+reformat_number_name = selected_subway_data %>% 
+  gather(key = route, value = train, route1:route11) %>%
+  separate(route, into = c("remove1", "route"), sep = 5) %>%
+  select(everything(), -remove1) %>% 
+  distinct(line, station_name, train, ada) %>% 
+  filter(train == "A")
+## How Many Distinct Stations Serve the A Train?
+nrow(reformat_number_name)
+## How Many A Train Stations are ADA Compliant?
+sum(reformat_number_name$ada)
+```
+## Problem 2 Mr Trash Wheel
+```{r Reading, Cleaning, and Mutating Data, echo = FALSE}
+trash_wheel = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
+janitor::clean_names(dat = .) %>%
+  filter(!is.na(dumpster)) %>%
+  mutate(sports_balls = as.integer(sports_balls))
+collected = nrow(trash_wheel)*ncol(trash_wheel)
+collected
+## Precipitation Data
+## 2016
+precip_2016 = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>%
+  janitor::clean_names(dat = .) %>%
+  mutate(year = 2016) 
+nrow(precip_2016)
+ncol(precip_2016)
+## 2017
+precip_2017 = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>%  
+  janitor::clean_names(dat = .) %>%
+  mutate(year = 2017)
+## Convert Datasets and Convert
+precip_2016_2017 = bind_rows(precip_2016, precip_2017)
+month_vector =  month.name[c(pull(precip_2016_2017, month))]
+month_df = tibble::as.tibble(month_vector) 
+final_precip_2016_2017 = bind_cols(precip_2016_2017, month_df) %>%
+  select(-month) %>%
+  select(year, month = value, total)
+## Total Precipitation in 2017
+sum(precip_2017$total)
+## Median Number of Sports Balls in a Dumpster in 2016
+median_balls_2016 = trash_wheel %>% 
+  filter(year == 2016) 
+median(median_balls_2016$sports_balls)
+```
+## Problem 3 BRFFS Data
+```{r Installing Dataset, echo = FALSE}
+# install.packages("devtools")
+devtools::install_github("p8105/p8105.datasets")
+library(p8105.datasets)
+data(brfss_smart2010)
+## Clean and Wrangle Data
+brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
+  filter(topic == "Overall Health") %>%
+  select(-(class:question), -sample_size, -(confidence_limit_low:geo_location)) %>%
+  spread(key = response, value = data_value) %>%
+  janitor::clean_names(dat = .) %>%   
+mutate(excellent_verygood = excellent + very_good)
+## Answer Questions
+## Unique Locations Included in Dataset? Every State Represented? State Observed the Most?
 ```
