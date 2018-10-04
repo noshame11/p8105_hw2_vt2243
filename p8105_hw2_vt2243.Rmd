@@ -8,16 +8,18 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
-
 ```{r Reading, Cleaning, Mutating, and Counting Rows/Columns Subway Data, echo = FALSE}
+## Read Data
 subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_AND_Exit_Data.csv")
+## Clean, Select, and Mutate
 cleaned_subway_data = janitor::clean_names(subway_data)
 selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>% mutate(entry = recode(entry, "YES" = TRUE, "NO" = FALSE)) 
-as.tibble(selected_subway_data)
+## Counting Columns and Rows
 nrow(selected_subway_data)
 ncol(selected_subway_data)
 ```
-```{r How Many Distinct Station Are There, echo = FALSE}
+```{r Answer Problem 1 Questions, echo = FALSE}
+## How Many Distinct Stations Are There?
 
 
 ```
