@@ -101,6 +101,8 @@ data_2002 = brfss_data %>%
 median(data_2002$excellent, na.rm = TRUE) 
 ## Plotting
 ## Histogram of Excellent Responses in 2002
-## Scatterplot of Excellent Response in New York County and Queens County in Each Year from 2002 to 2010.
 ggplot(data_2002, aes(x = excellent)) + geom_histogram(binwidth = 0.75)
+## Scatterplot of Excellent Response in New York County and Queens County in Each Year from 2002 to 2010.
+brfss_data %>%
+  filter(locationdesc %in% c("New York County", "Queens Count"), year %in% c("2002":"2012")) %>% ggplot(aes(x = year, y = excellent, color = locationdesc)) + geom_point() + scale_x_continuous(breaks = c(2002:2010))
 ```
