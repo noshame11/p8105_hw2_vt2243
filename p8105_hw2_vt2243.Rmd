@@ -21,11 +21,11 @@ ncol(selected_subway_data)
 ```
 ```{r Answer Problem 1 Questions, echo = FALSE}
 ## How Many Distinct Stations are There?
-counting_stations = distinct(selected_subway_data, line, station_name)
+counting_stations = distinct(selected_subway_data, line, station_name, ada)
 as.tibble(counting_stations)
 nrow(counting_stations)
 ## How Many Distinct Stations with ADA are There?
-counting_stations_ada = distinct(counting_stations, line, station, ada)
+counting_stations_ada = distinct(counting_stations$ada, .keep_all = TRUE)
 as.tibble(counting_stations_ada)
+nrow(counting_stations_ada)
 ```
-
