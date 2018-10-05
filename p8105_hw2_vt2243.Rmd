@@ -23,7 +23,7 @@ selected_subway_data = select(cleaned_subway_data, line, station_name, station_l
 nrow(selected_subway_data)
 ncol(selected_subway_data)
 ```
-## About this Dataset
+### About this Dataset
 The original dataset contained a number of variables that concern the details of the NYC Subway System's stations:  
 1. Division
 2. Train Line  
@@ -88,7 +88,7 @@ reformat_number_name = selected_subway_data %>%
 `r sum(reformat_number_name$ada)` A train stations are ADA compliant.
 
 ## Problem 2 - Mr Trash Wheel
-## About the Datasets
+### About the Datasets
 ```{r Reading, Cleaning, and Mutating Data for Mr. Trash Wheel, echo = FALSE}
 ## Read, Clean, and Mutate Mr. Trash Wheel Data
 trash_wheel = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
@@ -149,11 +149,15 @@ data_2002 = brfss_data %>%
 ```
 In 2002, the median of the “Excellent” response value was `r median(data_2002$excellent, na.rm = TRUE)`. 
 
-```{r Plots, echo = FALSE, warning = FALSE}
-## Plotting
+### Plots
+#### Histogram of Excellent Responses in 2002
+```{r Histogram Plot, echo = FALSE, warning = FALSE}
 ## Histogram of Excellent Responses in 2002
 ggplot(data_2002, aes(x = excellent)) + geom_histogram(binwidth = 0.75)
-## Scatterplot of Excellent Response in New York County and Queens County in Each Year from 2002 to 2010.
+```
+
+#### Scatterplot of Excellent Response in New York County and Queens County in Each Year from 2002 to 2010.
+```{r Scatterplot, echo = FALSE, warning = FALSE}
 brfss_data %>%
   filter(locationdesc %in% c("NY - New York County", "NY - Queens County"), year %in% c("2002":"2012")) %>% ggplot(aes(x = year, y = excellent, color = locationdesc)) + geom_point() + scale_x_continuous(breaks = c(2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010))
 ```
