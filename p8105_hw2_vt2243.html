@@ -162,13 +162,14 @@ $(document).ready(function () {
 6. Presence of Vending<br />
 7. Entrance Type<br />
 8. ADA compliance.</p>
-<p>Data “cleaning” of the original dataset used the functions “janitor” to clean column names for conversion to lower snake case and “select” to retain desired variables. The “Presence of Entry” variable was converted from character to logical via the “mutate” and “recode” functions.<br />
-The dimension of the cleaned dataset is 35492</p>
-<p>There are 465 distinct subway station.</p>
-<pre><code>## [1] 84</code></pre>
-<pre><code>## [1] 0.03747323</code></pre>
-<pre><code>## [1] 60</code></pre>
-<pre><code>## [1] 17</code></pre>
+<p>Data “cleaning” of the original dataset used the functions “janitor” to clean column names for conversion to lower snake case and “select” to retain desired variables. The “Presence of Entry” variable was converted from character to logical via the “mutate” and “recode” functions.</p>
+<p>The dataset should not be considered “tidy”. Routes are not consolidated but spread across eleven different columns.</p>
+<p>The dimension of the cleaned dataset is 1868 rows by 19 columns.</p>
+<p>There are 465 distinct subway stations.</p>
+<p>There are 84 distinct stations that are ADA compliant.</p>
+<p>0.0374732 is the proportion of station entrances/exits without vending allow entrances.</p>
+<p>60 distinct stations serve the A train.</p>
+<p>17 A train stations are ADA compliant.</p>
 </div>
 <div id="problem-2---mr-trash-wheel" class="section level2">
 <h2>Problem 2 - Mr Trash Wheel</h2>

@@ -6,7 +6,6 @@ output:
   html_document: default
   github_document: default
 ---
-
 ```{r Setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
@@ -57,19 +56,24 @@ The "cleaned" dataset, so far has removed all variables except:
 8. ADA compliance.    
 
 Data "cleaning" of the original dataset used the functions "janitor" to clean column names for conversion to lower snake case and "select" to retain desired variables. The "Presence of Entry" variable was converted from character to logical via the "mutate" and "recode" functions.  
-The dimension of the cleaned dataset is `r nrow(selected_subway_data) * ncol(selected_subway_data)`
-```{r Answer Problem 1 Questions, echo = FALSE}
+
+The dataset should not be considered "tidy". Routes are not consolidated but spread across eleven different columns.  
+
+The dimension of the cleaned dataset is `r nrow(selected_subway_data)` rows by `r ncol(selected_subway_data)` columns. 
+```{r Answer Distinct Subway Stations, echo = FALSE}
 ## How Many Distinct Subway Stations are There?
 counting_stations = distinct(selected_subway_data, line, station_name, ada)
 ```
-There are `r nrow(counting_stations)` distinct subway station.
-```{r, echo = FALSE}
-## How Many Distinct Stations are ADA Compliant?
-sum(counting_stations$ada)
+There are `r nrow(counting_stations)` distinct subway stations.
+
+There are `r sum(counting_stations$ada)` distinct stations that are ADA compliant.
+```{r Proportion of Vending Allow Entrances, echo = FALSE}
 ## What is the Proportion of Station Entrances/Exits without Vending Allow Entrance?
 vending_entrances = selected_subway_data %>%
 mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE), vending_none = !(vending == entry))
-sum(vending_entrances$vending_none)/nrow(vending_entrances) 
+```
+`r sum(vending_entrances$vending_none)/nrow(vending_entrances)` is the proportion of station entrances/exits without vending allow entrances. 
+```{r Reformat Variables, echo = FALSE}
 ## Reformat Route Number and Route Name
 reformat_number_name = selected_subway_data %>% 
   gather(key = route, value = train, route1:route11) %>%
@@ -77,11 +81,11 @@ reformat_number_name = selected_subway_data %>%
   select(everything(), -remove1) %>% 
   distinct(line, station_name, train, ada) %>% 
   filter(train == "A")
-## How Many Distinct Stations Serve the A Train?
-nrow(reformat_number_name)
-## How Many A Train Stations are ADA Compliant?
-sum(reformat_number_name$ada)
 ```
+`r nrow(reformat_number_name)` distinct stations serve the A train.
+
+`r sum(reformat_number_name$ada)` A train stations are ADA compliant.
+
 ## Problem 2 - Mr Trash Wheel
 ```{r Reading, Cleaning, and Mutating Data, echo = FALSE}
 trash_wheel = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
