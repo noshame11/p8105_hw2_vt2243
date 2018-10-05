@@ -7,18 +7,19 @@ output:
   github_document: default
 ---
 ```{r Setup, include = FALSE}
+## R Setup
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
-## Problem 1 - NYC Subways
+## Problem 1 - NYC Subway Stations
 ```{r Reading, Cleaning, Mutating, and Counting Rows/Columns Subway Data, echo = FALSE, include = FALSE}
-## Read Data
+## Read Subway Station Data
 subway_data = read_csv(file = "./NYC_Transit_Subway_Entrance_AND_Exit_Data.csv")
-## Clean, Select, and Mutate
+## Clean, Select, and Mutate Data
 cleaned_subway_data = janitor::clean_names(subway_data)
 selected_subway_data = select(cleaned_subway_data, line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>% 
   mutate(entry = recode(entry, "YES" = TRUE, "NO" = FALSE)) 
-## Counting Columns and Rows
+## Counting Dataset Columns and Rows
 nrow(selected_subway_data)
 ncol(selected_subway_data)
 ```
@@ -87,45 +88,43 @@ reformat_number_name = selected_subway_data %>%
 `r sum(reformat_number_name$ada)` A train stations are ADA compliant.
 
 ## Problem 2 - Mr Trash Wheel
-## About this Dataset
-```{r Reading, Cleaning, and Mutating Data, echo = FALSE}
+## About the Datasets
+```{r Reading, Cleaning, and Mutating Data for Mr. Trash Wheel, echo = FALSE}
+## Read, Clean, and Mutate Mr. Trash Wheel Data
 trash_wheel = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
 janitor::clean_names(dat = .) %>%
   filter(!is.na(dumpster)) %>%
   mutate(sports_balls = as.integer(sports_balls))
-collected = nrow(trash_wheel)*ncol(trash_wheel)
-collected
 ```
-Read and clean precipitation data for 2016 and 2017. For each, omit rows without precipitation data and add a variable year. Next, combine datasets and convert month to a character variable (the variable month.name is built into R and should be useful).
-
-Write a paragraph about these data; you are encouraged to use inline R. Be sure to note the number of observations in both resulting datasets, and give examples of key variables. For available data, what was the total precipitation in 2017? What was the median number of sports balls in a dumpster in 2016?
-
-```{r Reading, Cleaning, and Mutating Data, echo = FALSE}
-## Precipitation Data
+There are two separate but related datasets in this problem set. The first dataset is about Mr. Trash Wheel cleaning the Baltimore Harbor of man-made refuse. Data in the excel file includes dates, number of dumpster-worth of trash collected, volume and weight of collected garbage, counts of a variety of most common man-made debris collected, and the amount of energy the trash wheel collected in terms of "homes powered" (each ton of trash = approximately 500 kilowatts of electricity and an average home uses 30 kilowatts/day). The dataset contains `r nrow(trash_wheel)` rows by `r ncol(trash_wheel)` columns of data after cleaning and omission of rows that did not include dumpster-specific data and columns containing notes.  
+```{r Reading, Cleaning, and Mutating Precipitation Data, echo = FALSE}
+## Read, Clean, and Mutate Precipitation Data
 ## 2016
 precip_2016 = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>%
   janitor::clean_names(dat = .) %>%
   mutate(year = 2016) 
-nrow(precip_2016)
-ncol(precip_2016)
 ## 2017
 precip_2017 = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>%  
   janitor::clean_names(dat = .) %>%
   mutate(year = 2017)
-## Convert Datasets and Convert
+## Convert Datasets 
 precip_2016_2017 = bind_rows(precip_2016, precip_2017)
 month_vector =  month.name[c(pull(precip_2016_2017, month))]
 month_df = tibble::as.tibble(month_vector) 
 final_precip_2016_2017 = bind_cols(precip_2016_2017, month_df) %>%
   select(-month) %>%
   select(year, month = value, total)
-## Total Precipitation in 2017
-sum(precip_2017$total)
-## Median Number of Sports Balls in a Dumpster in 2016
+```
+
+Although there are other calendar years of data available, only the precipitation datasets for 2016 and 2017 were utilized here. Precipitation data for those two years were cleaned by omitting rows without precipitation data. The datasets were combined and the variable for month was converted to a character variable. There are `r nrow(precip_2016)` rows by `r ncol(precip_2016)` columns of data for year 2016. Year 2017 has `r nrow(precip_2017)` rows by `r ncol(precip_2017)` columns of data. Datasets for both years contained details of total inches of percipitation per calendar month in a year. 
+
+Total precipitation in 2017 was `r sum(precip_2017$total)` inches.
+```{r Find Median Number of Sports Balls in a Dumpster in 2016 , echo = FALSE}
 median_balls_2016 = trash_wheel %>% 
   filter(year == 2016) 
-median(median_balls_2016$sports_balls)
 ```
+Median number of sports balls collected per dumpster in 2016, rounded to the nearest integer was `r median(median_balls_2016$sports_balls)`.
+
 ## Problem 3 - BRFFS Data
 ```{r Installing Dataset, echo = FALSE}
 ## install.packages("devtools")
