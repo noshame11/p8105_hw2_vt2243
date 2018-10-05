@@ -131,24 +131,23 @@ Median number of sports balls collected per dumpster in 2016, rounded to the nea
 ## devtools::install_github("p8105/p8105.datasets"); already installed but do not want to install every time
 library(p8105.datasets)
 data(brfss_smart2010)
-## Clean and Wrangle Data
+## Clean and Wrangle Data to Prepare for Answering Questions
 brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
   filter(topic == "Overall Health") %>%
   select(-(class:question), -sample_size, -(confidence_limit_low:geo_location)) %>%
   spread(key = response, value = data_value) %>%
   janitor::clean_names(dat = .) %>%   
 mutate(excellent_verygood = excellent + very_good)
-## Answer Questions
-## Unique Locations Included in Dataset? Every State Represented? State Observed the Most?
-nrow(distinct(brfss_data, locationabbr))
+## Most Observered State (Other than Sleep Deprivation)
 most_observed_state = count(brfss_data, locationabbr) %>%
   top_n(1, n) 
-pull(most_observed_state, locationabbr)   
-pull(most_observed_state, n)
+```
+There are `r nrow(distinct(brfss_data, locationabbr))` unique locations included in this dataset. Every state and the District of Columbia appear to be represented here. The state that appears to be most observed in this dataset is `r pull(most_observed_state, locationabbr)` with a total of `r pull(most_observed_state, n)` observations. 
+```{r Find the Median, echo = FALSE}
 data_2002 = brfss_data %>% 
   filter(year == 2002)
-median(data_2002$excellent, na.rm = TRUE) 
 ```
+In 2002, the median of the “Excellent” response value was `r median(data_2002$excellent, na.rm = TRUE)`. 
 
 ```{r Plots, echo = FALSE, warning = FALSE}
 ## Plotting
