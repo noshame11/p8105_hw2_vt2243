@@ -24,12 +24,44 @@ nrow(selected_subway_data)
 ncol(selected_subway_data)
 ```
 ## About this Dataset
-This dataset contains a number of variables that concern the NYC Subway System: 
+The original dataset contained a number of variables that concern the details of the NYC Subway System's stations:  
+1. Division
+2. Train Line  
+3. Station Location Name  
+4. Station Latitude  
+5. Station Longitude  
+6. Route Numbers or Letters Served  
+7. Entrance Type  
+8. Presence of Entry  
+9. Presence of Exit  
+10. Presence of Vending  
+11. Presence of Staffing  
+12. Staff Hours
+13. ADA Compliance  
+14. ADA Notes  
+15. Presence of Free Crossovers  
+16. North-South Streets  
+17. East-West Streets  
+18. Corner Location  
+19. Station Location (Latitude/Longitude)  
+20. Entrance Location (Latitude/Longitude)       
+
+The "cleaned" dataset, so far has removed all variables except:  
+1. Line  
+2. Station Name  
+3. Station Location (Latitude/Longitude)  
+4. Routes Served  
+5. Presence of Entry  
+6. Presence of Vending   
+7. Entrance Type  
+8. ADA compliance.    
+
+Data "cleaning" of the original dataset used the functions "janitor" to clean column names for conversion to lower snake case and "select" to retain desired variables. The "Presence of Entry" variable was converted from character to logical via the "mutate" and "recode" functions. 
 ```{r Answer Problem 1 Questions, echo = FALSE}
 ## How Many Distinct Subway Stations are There?
 counting_stations = distinct(selected_subway_data, line, station_name, ada)
-nrow(counting_stations)
 ```
+There are `r nrow(counting_stations)` distinct subway station.
 ```{r, echo = FALSE}
 ## How Many Distinct Stations are ADA Compliant?
 sum(counting_stations$ada)

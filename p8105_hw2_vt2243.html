@@ -133,8 +133,36 @@ $(document).ready(function () {
 </div>
 <div id="about-this-dataset" class="section level2">
 <h2>About this Dataset</h2>
-<p>This dataset contains a number of variables that concern the NYC Subway System:</p>
-<pre><code>## [1] 465</code></pre>
+<p>The original dataset contained a number of variables that concern the details of the NYC Subway System’s stations:<br />
+1. Division 2. Train Line<br />
+3. Station Location Name<br />
+4. Station Latitude<br />
+5. Station Longitude<br />
+6. Route Numbers or Letters Served<br />
+7. Entrance Type<br />
+8. Presence of Entry<br />
+9. Presence of Exit<br />
+10. Presence of Vending<br />
+11. Presence of Staffing<br />
+12. Staff Hours 13. ADA Compliance<br />
+14. ADA Notes<br />
+15. Presence of Free Crossovers<br />
+16. North-South Streets<br />
+17. East-West Streets<br />
+18. Corner Location<br />
+19. Station Location (Latitude/Longitude)<br />
+20. Entrance Location (Latitude/Longitude)</p>
+<p>The “cleaned” dataset, so far has removed all variables except:<br />
+1. Line<br />
+2. Station Name<br />
+3. Station Location (Latitude/Longitude)<br />
+4. Routes Served<br />
+5. Presence of Entry<br />
+6. Presence of Vending<br />
+7. Entrance Type<br />
+8. ADA compliance.</p>
+<p>Data “cleaning” of the original dataset used the functions “janitor” to clean column names for conversion to lower snake case and “select” to retain desired variables. The “Presence of Entry” variable was converted from character to logical via the “mutate” and “recode” functions.</p>
+<p>There are 465 distinct subway station.</p>
 <pre><code>## [1] 84</code></pre>
 <pre><code>## [1] 0.03747323</code></pre>
 <pre><code>## [1] 60</code></pre>
