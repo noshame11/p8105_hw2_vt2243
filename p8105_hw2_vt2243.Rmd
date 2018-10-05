@@ -87,6 +87,7 @@ reformat_number_name = selected_subway_data %>%
 `r sum(reformat_number_name$ada)` A train stations are ADA compliant.
 
 ## Problem 2 - Mr Trash Wheel
+## About this Dataset
 ```{r Reading, Cleaning, and Mutating Data, echo = FALSE}
 trash_wheel = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
 janitor::clean_names(dat = .) %>%
@@ -94,6 +95,12 @@ janitor::clean_names(dat = .) %>%
   mutate(sports_balls = as.integer(sports_balls))
 collected = nrow(trash_wheel)*ncol(trash_wheel)
 collected
+```
+Read and clean precipitation data for 2016 and 2017. For each, omit rows without precipitation data and add a variable year. Next, combine datasets and convert month to a character variable (the variable month.name is built into R and should be useful).
+
+Write a paragraph about these data; you are encouraged to use inline R. Be sure to note the number of observations in both resulting datasets, and give examples of key variables. For available data, what was the total precipitation in 2017? What was the median number of sports balls in a dumpster in 2016?
+
+```{r Reading, Cleaning, and Mutating Data, echo = FALSE}
 ## Precipitation Data
 ## 2016
 precip_2016 = readxl::read_excel("./HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>%
