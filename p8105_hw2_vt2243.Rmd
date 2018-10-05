@@ -127,6 +127,7 @@ Median number of sports balls collected per dumpster in 2016, rounded to the nea
 
 ## Problem 3 - BRFFS Data
 ```{r Installing Dataset, echo = FALSE}
+## Prepare Setup to Answer Problem 3
 ## install.packages("devtools")
 ## devtools::install_github("p8105/p8105.datasets"); already installed but do not want to install every time
 library(p8105.datasets)
