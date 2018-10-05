@@ -36,8 +36,8 @@ The original dataset contained a number of variables that concern the details of
 9. Presence of Exit  
 10. Presence of Vending  
 11. Presence of Staffing  
-12. Staff Hours
-13. ADA Compliance  
+12. Staff Hours  
+13. ADA Compliance    
 14. ADA Notes  
 15. Presence of Free Crossovers  
 16. North-South Streets  
@@ -56,7 +56,8 @@ The "cleaned" dataset, so far has removed all variables except:
 7. Entrance Type  
 8. ADA compliance.    
 
-Data "cleaning" of the original dataset used the functions "janitor" to clean column names for conversion to lower snake case and "select" to retain desired variables. The "Presence of Entry" variable was converted from character to logical via the "mutate" and "recode" functions. 
+Data "cleaning" of the original dataset used the functions "janitor" to clean column names for conversion to lower snake case and "select" to retain desired variables. The "Presence of Entry" variable was converted from character to logical via the "mutate" and "recode" functions.  
+The dimension of the cleaned dataset is `r nrow(selected_subway_data) * ncol(selected_subway_data)`
 ```{r Answer Problem 1 Questions, echo = FALSE}
 ## How Many Distinct Subway Stations are There?
 counting_stations = distinct(selected_subway_data, line, station_name, ada)
