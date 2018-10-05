@@ -150,13 +150,13 @@ data_2002 = brfss_data %>%
 In 2002, the median of the “Excellent” response value was `r median(data_2002$excellent, na.rm = TRUE)`. 
 
 ### Plots
-#### Histogram of Excellent Responses in 2002
+#### Histogram of Excellent Response Values in 2002
 ```{r Histogram Plot, echo = FALSE, warning = FALSE}
 ## Histogram of Excellent Responses in 2002
 ggplot(data_2002, aes(x = excellent)) + geom_histogram(binwidth = 0.75)
 ```
 
-#### Scatterplot of Excellent Response in New York County and Queens County in Each Year from 2002 to 2010.
+#### Scatterplot of Proportion of Excellent Response Values in New York County and Queens County in Each Year from 2002 to 2010.
 ```{r Scatterplot, echo = FALSE, warning = FALSE}
 brfss_data %>%
   filter(locationdesc %in% c("NY - New York County", "NY - Queens County"), year %in% c("2002":"2012")) %>% ggplot(aes(x = year, y = excellent, color = locationdesc)) + geom_point() + scale_x_continuous(breaks = c(2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010))
